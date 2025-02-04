@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && nodemon index.js",
+    "client": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "web-vitals": "^4.2.4"
+  }
+}
