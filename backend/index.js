@@ -17,7 +17,7 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // database
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://admin:admin123@cluster0.cdzdp.mongodb.net/demo?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
