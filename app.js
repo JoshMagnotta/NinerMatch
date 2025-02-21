@@ -1,8 +1,11 @@
 // backend
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require("path");
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, "views")));
 
 let port = 3000;
 let host = 'localhost';
