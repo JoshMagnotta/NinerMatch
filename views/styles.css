@@ -1,13 +1,36 @@
+/* GLOBAL */
 * {
     padding: 0;
     margin: 0;
 }
 
+/* 
+    Try to stick to the UNC Charlotte palette and use the variables below instead of manually typing in the hex code
+    https://brand.charlotte.edu/visual-identity/color-palette/
+*/
+:root {
+    --niner-green: #005035;
+    --niner-gold: #A49665;
+    
+}
+
+.main-content {
+    flex: 1;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #014421; 
+    background-color: var(--niner-green); 
     padding: 15px 30px;
 }
 
@@ -30,4 +53,15 @@ header {
     color: white;
     text-decoration: none;
     
+}
+
+/* FOOTER */
+.footer-content {
+    background-color: var(--niner-green);
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
