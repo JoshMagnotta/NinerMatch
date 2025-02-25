@@ -65,3 +65,82 @@ header {
     bottom: 0;
     width: 100%;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Background */
+  body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F1E6B2;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /* opacity: 0.5; Semi-transparent */
+    z-index: -1; /* Places the background behind everything */
+  }
+  
+  .welcome-title {
+    font-size: 36px;  
+    font-weight: bold;
+    color: var(--niner-green);
+    margin-bottom: 30px;  
+  }
+
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    color: white;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button-container .top-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  
+  /* top buttons */
+  .button-container .top-buttons button {
+    margin: 20px;
+    padding: 30px 60px;  
+    font-size: 24px;      
+    background-color: #005035; 
+    color: white;
+    border: none;
+    border-radius: 10px;  
+    cursor: pointer;
+  }
+  
+  /* bottom button */
+  .button-container .bottom-button {
+    margin-top: 40px;
+    padding: 30px 60px;  
+    font-size: 24px;      
+    background-color: #005035;
+    color: white;
+    border: none;
+    border-radius: 10px;  
+    cursor: pointer;
+  }
