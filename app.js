@@ -2,14 +2,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require("path");
+const roommateRoutes = require('./routes/roommateRoutes');
+//const dormRoutes = require('./routes/dormRoutes');
 
 const app = express();
-
-app.use(express.static(path.join(__dirname, "views")));
 
 let port = 3000;
 let host = 'localhost';
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 const mongoURI = 'mongodb+srv://admin:admin123@cluster0.cdzdp.mongodb.net/ninermatch?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(mongoURI)
 .then(() => {
@@ -23,3 +24,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.use('/roommate', roommateRoutes);
+
+//app.use('/dorm', dormRoutes);
