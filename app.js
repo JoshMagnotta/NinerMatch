@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require("path");
 const roommateRoutes = require('./routes/roommateRoutes');
-//const dormRoutes = require('./routes/dormRoutes');
+const dormRoutes = require('./routes/dormRoutes');
 
 const app = express();
 
@@ -25,5 +25,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/roommate', roommateRoutes);
-
-//app.use('/dorm', dormRoutes);
+ 
+app.use('/dorm', dormRoutes);
