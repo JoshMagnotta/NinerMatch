@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require("path");
+const dormRoutes = require('./routes/dormRoutes');
+const roommateRoutes = require('./routes/roommateRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 
 const app = express();
@@ -26,4 +28,8 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.use(userRoutes);  
+app.use('/roommate', roommateRoutes);
+ 
+app.use('/dorm', dormRoutes);
+
+app.use('/login', userRoutes);  

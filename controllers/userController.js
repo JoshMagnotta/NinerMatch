@@ -1,5 +1,5 @@
 exports.renderLoginPage = (req, res) => {
-    res.render('login'); 
+    res.render('user/login'); 
   };
   
   exports.handleLogin = (req, res) => {
@@ -9,7 +9,7 @@ exports.renderLoginPage = (req, res) => {
     if (username === 'test' && password === 'password') {
       res.redirect('/');  
     } else {
-      res.render('login', { error: 'Invalid username or password' });
+      res.render('user/login', { error: 'Invalid username or password' });
     }
   };
   
