@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Login - NinerMatch</title>
+  </head>
+  <body>
+    <%- include("partials/header") %> 
+    
+    <div class="main-content">
+      <div class="login-form">
+        <h2 class="login-title">Please log in to access NinerMatch</h2>
+
+         <!-- Check for error message -->
+         <% if (typeof error !== 'undefined') { %>
+          <div class="error-message">
+            <%= error %>
+          </div>
+        <% } %>
+
+        <form action="/login" method="POST">
+          <input type="text" name="username" placeholder="Username" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+
+        <div class="signup-link">
+          <a href="#">Not a member? Create an account</a>
+        </div>
+      </div>
+    </div>
+
+    <%- include("partials/footer") %> 
+  </body>
+</html>
+
