@@ -7,21 +7,21 @@
       <div class="filters">
           <h2>Filters</h2>
           <h3>Gender</h3>
-<label><input type="radio" name="gender" value="All" checked> All</label>
-<label><input type="radio" name="gender" value="Male"> Male Only</label>
-<label><input type="radio" name="gender" value="Female"> Female Only</label>
-<label><input type="radio" name="gender" value="Non-binary"> Inclusive</label>
+            <label><input type="radio" name="gender" value="All" checked> All</label>
+            <label><input type="radio" name="gender" value="Male"> Male Only</label>
+            <label><input type="radio" name="gender" value="Female"> Female Only</label>
+            <label><input type="radio" name="gender" value="Non-binary"> Inclusive</label>
 
-<h3>Dorm Style</h3>
-<label><input type="radio" name="style" value="All" checked> All</label>
-<label><input type="radio" name="style" value="Traditional"> Traditional</label>
-<label><input type="radio" name="style" value="Suite"> Suite</label>
-<label><input type="radio" name="style" value="Apartment"> Apartment</label>
+            <h3>Dorm Style</h3>
+            <label><input type="radio" name="style" value="All" checked> All</label>
+            <label><input type="radio" name="style" value="Traditional"> Traditional</label>
+            <label><input type="radio" name="style" value="Suite"> Suite</label>
+            <label><input type="radio" name="style" value="Apartment"> Apartment</label>
 
         </div>
   
       <div class="roommate-list" id="roommate-container">
-        <% roommates.forEach(roommate => { %>
+        <% roommate.forEach(roommate => { %>
           <div class="roommate-card" 
                data-gender="<%= roommate.gender %>" 
                data-style="<%= roommate.style %>">
