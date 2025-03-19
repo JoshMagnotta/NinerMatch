@@ -174,3 +174,8 @@ body {
   flex-direction: column;
 }
 
+#no-results-message {
+  display: none; 
+  text-align: center; 
+  color: red;
+}

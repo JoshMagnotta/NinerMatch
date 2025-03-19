@@ -27,6 +27,11 @@
         </div>
   
       <div class="roommate-list" id="roommate-container">
+        <!-- Only displays if filter has no results (see filter.js)-->
+          <p id="no-results-message">
+              No results found.
+          </p>
+        
         <% roommate.forEach(roommate => { %>
           <div class="roommate-card" 
                data-gender="<%= roommate.gender %>" 
