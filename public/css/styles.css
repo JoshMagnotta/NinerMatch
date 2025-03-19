@@ -24,6 +24,8 @@ html, body {
   padding: 0;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -72,25 +74,9 @@ body {
     margin: 0;
     height: 100vh;
     position: relative;
-    
+    background-color: #F1E6B2;
   }
   
-  /* Background */
-  body::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #F1E6B2;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    /* opacity: 0.5; Semi-transparent */
-    z-index: -1; /* Places the background behind everything */
-  }
   
   .welcome-title {
     font-size: 36px;  
@@ -151,7 +137,7 @@ body {
 
 .roommate-page {
   display: grid;
-  grid-template-columns: 1fr 3fr; 
+  grid-template-columns: 1fr 4fr; 
   gap: 20px;
   padding: 20px;
   flex:1;
@@ -162,20 +148,23 @@ body {
   background-color: #f0e6b2; 
   padding: 20px;
   border-radius: 8px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 
 .roommate-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  display: flex;
   gap: 20px;
   width: 100%;
+  padding-top: 20px;
+  flex-direction: column;
+
 }
 
 
 .roommate-card {
   width: 95%;
-  margin: 20px 0;
   padding: 15px;
   background-color: white;
   border-radius: 10px;
