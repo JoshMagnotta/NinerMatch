@@ -13,7 +13,12 @@ exports.login = async (req, res) => {
         console.log('incorrect email or password');
         res.redirect('/user/login');
       }
-      req.session.user = user._id;
+      req.session.user = {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
       res.redirect('/');
     } catch (err){
       console.log(err.message);
