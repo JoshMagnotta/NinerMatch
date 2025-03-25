@@ -1,3 +1,3 @@
 exports.index = async (req, res, next) => {
-    res.render('roommate/index');
+    return res.render('./roommate/index');
 }
