@@ -1,10 +1,51 @@
+<script src="/js/filter.js"></script>
+
 <%- include('../partials/header') %>
 
   <body>
-    <div class="main-content">
-      <h1>Roommates
-      </h1>
-    </div>
+    <div class="roommate-page">
+      <div class="filters">
+          <h2>Filters</h2>
+          <h3>Gender</h3>
+            <label><input type="radio" name="gender" value="All" checked> All</label>
+            <br>
+            <label><input type="radio" name="gender" value="Male"> Male Only</label>
+            <br>
+            <label><input type="radio" name="gender" value="Female"> Female Only</label>
+            <br>
+            <label><input type="radio" name="gender" value="Non-binary"> Inclusive</label>
+            <br><br>
+            <h3>Dorm Style</h3>
+            <label><input type="radio" name="style" value="All" checked> All</label>
+            <br>
+            <label><input type="radio" name="style" value="Traditional"> Traditional</label>
+            <br>
+            <label><input type="radio" name="style" value="Suite"> Suite</label>
+            <br>
+            <label><input type="radio" name="style" value="Apartment"> Apartment</label>
+
+        </div>
+  
+      <div class="roommate-list" id="roommate-container">
+        <!-- Only displays if filter has no results (see filter.js)-->
+          <p id="no-results-message">
+              No results found.
+          </p>
+        
+        <% roommate.forEach(roommate => { %>
+          <div class="roommate-card" 
+               data-gender="<%= roommate.gender %>" 
+               data-style="<%= roommate.style %>">
+            <h3><%= roommate.title %></h3>
+            <p><%= roommate.details %></p>
+            <p><strong>Gender:</strong> <%= roommate.gender %> | <strong>Style:</strong> <%= roommate.style %></p>
+            <p><strong>Posted by:</strong> <%= roommate.poster %></p>
+          </div>
+        <% }); %>
+      </div>
+      </div>
+  </div>
+  
   </body>
 
 <%- include('../partials/footer') %>
