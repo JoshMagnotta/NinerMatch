@@ -41,6 +41,11 @@ header {
     margin: 0;
 }
 
+.header-title a {
+  color: white;
+  text-decoration: none;
+}
+
 .header-nav nav ul {
     list-style: none;
     margin: 0;
