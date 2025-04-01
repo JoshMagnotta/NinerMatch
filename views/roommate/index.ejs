@@ -39,7 +39,7 @@
             <h3><%= roommate.title %></h3>
             <p><%= roommate.details %></p>
             <p><strong>Gender:</strong> <%= roommate.gender %> | <strong>Style:</strong> <%= roommate.style %></p>
-            <p><strong>Posted by:</strong> <%= roommate.poster %></p>
+            <p><strong>Posted by:</strong> <%= roommate.poster.firstName%> <%= roommate.poster.lastName%></p>
           </div>
         <% }); %>
       </div>
