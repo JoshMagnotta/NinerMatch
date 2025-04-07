@@ -34,11 +34,11 @@
         
         <% roommate.forEach(roommate => { %>
           <div class="roommate-card" 
-               data-gender="<%= roommate.gender %>" 
-               data-style="<%= roommate.style %>">
-            <h3><%= roommate.title %></h3>
-            <p><%= roommate.details %></p>
-            <p><strong>Gender:</strong> <%= roommate.gender %> | <strong>Style:</strong> <%= roommate.style %></p>
+              data-gender="<%= roommate.gender %>" 
+              data-style="<%= roommate.style %>">
+              <h3><a href="/roommates/<%= roommate._id %>"><%= roommate.title %></a></h3>
+              <p><%= roommate.details %></p>
+              <p><strong>Gender:</strong> <%= roommate.gender %> | <strong>Style:</strong> <%= roommate.style %></p>
               <% if (roommate.poster) { %>
                   <p><strong>Posted by:</strong> <%= roommate.poster.firstName %> <%= roommate.poster.lastName %></p>
               <% } else { %>
