@@ -39,3 +39,12 @@ exports.signUp = async (req, res) => {
     console.log(err.message);
   }
 };
+
+exports.logout = async (req, res) => {
+  try{
+    await req.session.destroy();
+    res.redirect('/');
+  } catch{ (err)
+    console.log(err.message)
+  }
+}
