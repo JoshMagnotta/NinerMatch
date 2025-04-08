@@ -334,3 +334,13 @@ body {
   padding: 5px;
   margin: 10px;
 } */
+
+/* Profile Page */
+.profile-container {
+  padding: 0 10%;
+}
+
+.profile-container h2 {
+  text-align: center;
+  padding-top: 10px;
+}

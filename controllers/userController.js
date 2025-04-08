@@ -39,3 +39,10 @@ exports.signUp = async (req, res) => {
     console.log(err.message);
   }
 };
+
+exports.getProfilePage = async (req, res) => {
+  if(!req.session.user) {
+    res.redirect('/user/login')
+  }
+  res.render('./user/profile'); 
+};
