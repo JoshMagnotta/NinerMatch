@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<body>
+    <div class="roommate-details">
+
+        <div class="info-container">
+            <h1><%= roommate.title %></h1>
+            <p><strong>Details:</strong> <%= roommate.details %></p>
+            <p><strong>Gender Preference:</strong> <%= roommate.gender %></p>
+            <p><strong>Dorm Style:</strong> <%= roommate.style %></p>
+            <p><strong>Posted By:</strong> 
+                <% if (roommate.poster) { %>
+                    <%= roommate.poster.firstName %> <%= roommate.poster.lastName %>
+                <% } else { %>
+                    Unknown
+                <% } %>
+            </p>
+            <p><strong>Posted On:</strong> <%= roommate.createdAt.toDateString() %></p>
+
+        </div>
+        <hr>
+
+
+        <div class="comment-container">
+            <h2>Comments</h2>
+            <ul class="comments-list">
+                <% if (roommate.comments && roommate.comments.length > 0) { %>
+                    <% roommate.comments.forEach(comment => { %>
+                        <li><strong><%= comment.author %>:</strong> <%= comment.text %></li>
+                    <% }); %>
+                <% } else { %>
+                    <li>No comments yet. Be the first to comment!</li>
+                <% } %>
+            </ul>
+
+            <form class="comment-form">
+                <label for="comment">Leave a Comment:</label>
+                <textarea class="comment" name="comment" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<%- include('../partials/footer') %>
+
+<script>
+    document.querySelector('.comment-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const commentText = document.querySelector('.comment').value;
+        const postId = "<%= roommate._id %>";
+
+        const response = await fetch(`/roommates/${postId}/comment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: commentText })
+        });
+
+        if (response.ok) {
+            location.reload(); 
+        } else {
+            alert('Error submitting comment');
+        }
+    });
+</script>

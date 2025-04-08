@@ -63,6 +63,15 @@ header {
     
 }
 
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #1d4d2f;
+  color: white;
+  margin-top: auto;
+}
+
+
 /* FOOTER */
 .footer-content {
     background-color: var(--niner-green);
@@ -183,13 +192,16 @@ body {
   flex-direction: column;
 }
 
+.roommate-card h3 a {
+  text-decoration: none;
+  color:var(--niner-green)
+}
+
 #no-results-message {
   display: none; 
   text-align: center; 
   color: red;
 }
-  }
-
   
   .login-form {
     background-color: transparent; /* Make the login box transparent */
@@ -250,3 +262,75 @@ body {
     text-decoration: underline;
   }
   
+  /* Post Page */
+.roommate-details {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.roommate-details h1 {
+  color: #1d4d2f;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.roommate-details p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.roommate-details strong {
+  color: #1d4d2f;
+}
+
+.comment-container {
+  /* background-color: white; */
+  padding: 10px;
+  border-radius: 12px;
+
+}
+
+.comments-list, .comment-form {
+  padding: 1rem 1.5rem;
+  
+}
+
+.comments-list li {
+  list-style-type: none;
+
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.comment-form button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #004d3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #006b58;
+}
+
+/* .info-container {
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+  margin: 10px;
+} */

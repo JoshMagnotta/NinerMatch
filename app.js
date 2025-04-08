@@ -24,6 +24,8 @@ mongoose.connect(mongoURI)
   })
   .catch(err => console.log(err.message));
 
+app.use(express.json());
+
 app.use(
   session({
     secret: 'jhsabdajd27812381bdhass',
@@ -44,6 +46,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/roommate', roommateRoutes);
+app.use('/roommates', require('./routes/roommateRoutes'));
+
  
 app.use('/dorm', dormRoutes);
 
