@@ -5,25 +5,30 @@ exports.getLoginPage = async (req, res) => {
 };
   
 exports.login = async (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
-    try{
-      let user = await model.findOne({email: email});
-      if(!user){
-        console.log('incorrect email or password');
-        res.redirect('/user/login');
-      }
+  let email = req.body.email;
+  let password = req.body.password;
+  try{
+    let user = await model.findOne({email: email});
+    if(!user){
+      console.log('incorrect email, user not found');
+      res.redirect('/user/login');
+    };
+    if(await user.comparePassword(password)){
       req.session.user = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email
-      }
+      };
       res.redirect('/');
-    } catch (err){
-      console.log(err.message);
-    }
-  }
+    } else{
+      console.log('incorrect password');
+      res.redirect('/user/login');
+    };
+  } catch (err){
+    console.log(err.message);
+  };
+};
 
 exports.getSignUpPage = async (req, res) => {
   return res.render('./user/signup')
@@ -53,5 +58,5 @@ exports.logout = async (req, res) => {
     res.redirect('/');
   } catch{ (err)
     console.log(err.message)
-  }
-}
+  };
+};
