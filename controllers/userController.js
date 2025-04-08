@@ -46,3 +46,12 @@ exports.getProfilePage = async (req, res) => {
   }
   res.render('./user/profile'); 
 };
+
+exports.logout = async (req, res) => {
+  try{
+    await req.session.destroy();
+    res.redirect('/');
+  } catch{ (err)
+    console.log(err.message)
+  }
+}
