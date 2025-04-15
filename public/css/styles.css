@@ -327,10 +327,63 @@ body {
   background-color: #006b58;
 }
 
-/* .info-container {
+/* Dorms Page Layout */
+.dorm-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* 1/3rd for filters, 2/3rds for reviews */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Filters */
+.filters {
+  background-color: #f0e6b2;
+  padding: 20px;
+  border-radius: 8px;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Review List */
+.dorm-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.dorm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dorm-card {
+  background-color: #fff;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: rgb(255, 255, 255);
-  padding: 5px;
-  margin: 10px;
-} */
+}
+
+.dorm-card h3 {
+  margin-top: 0;
+}
+
+
+#make-post-btn {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: var(--niner-green);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#make-post-btn:hover {
+  background-color: #004d3c;
+}

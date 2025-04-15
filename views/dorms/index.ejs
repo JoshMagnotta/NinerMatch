@@ -1,10 +1,48 @@
+<script src="/js/dormFilter.js"></script>
+
 <%- include('../partials/header') %>
 
-  <body>
-    <div class="main-content">
-      <h1>Dorms
-      </h1>
+<body>
+  <div class="dorm-page">
+    <div class="filters">
+      <h2>Filters</h2>
+      <h3>Location</h3>
+      <label><input type="radio" name="Location" value="All" checked> All</label>
+            <br>
+            <label><input type="radio" name="Location" value="On-campus"> On-Campus</label>
+            <br>
+            <label><input type="radio" name="Location" value="Off-campus"> Off-Campus</label>
+            <br>
+
+      <h3>Select Dorm</h3>
+      <select id="dorm-select">
+        <option value="All">All Dorms</option>
+        <% dorms.forEach(dorm => { %>
+          <option value="<%= dorm.name %>"><%= dorm.name %></option>
+        <% }); %>
+      </select>
     </div>
-  </body>
+
+    <div class="dorm-list-container">
+      <button id="make-post-btn">+ Make a Post</button>
+
+
+      <div class="dorm-list" id="dorm-container">
+        <% dorms.forEach(dorm => { %>
+          <div class="dorm-card" 
+               data-location="<%= dorm.on_campus ? 'On-campus' : 'Off-campus' %>" 
+               data-name="<%= dorm.name %>">
+            <h3><%= dorm.name %></h3>
+            <p><%= dorm.user_comment %></p>
+            <p><strong>Rating:</strong> <%= dorm.star_rating %>/5 ⭐ </p>
+            <p><strong>Parking:</strong> <%= dorm.parking_access %>/5 ⭐</p>
+            <p><strong>Rent:</strong> $<%= dorm.average_rent %>/semester</p>
+            <p><strong>Location:</strong> <%= dorm.on_campus ? 'On-campus' : 'Off-campus' %></p>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</body>
 
 <%- include('../partials/footer') %>
