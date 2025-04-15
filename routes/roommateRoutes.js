@@ -1,12 +1,10 @@
 const express = require('express');
 const controller = require('../controllers/roommateController');
-const Roommate = require('../models/roommateModel'); 
+
 const router = express.Router();
     
 router.get('/', controller.index)
 
-router.get('/:id', controller.getPost)
-
-router.post('/:id/comment', controller.comment);
+router.post('/create', controller.create);
 
 module.exports = router;

@@ -2,36 +2,73 @@
 
 <%- include('../partials/header') %>
 
-  <body>
-    <div class="roommate-page">
-      <div class="filters">
-          <h2>Filters</h2>
-          <h3>Gender</h3>
-            <label><input type="radio" name="gender" value="All" checked> All</label>
-            <br>
-            <label><input type="radio" name="gender" value="Male"> Male Only</label>
-            <br>
-            <label><input type="radio" name="gender" value="Female"> Female Only</label>
-            <br>
-            <label><input type="radio" name="gender" value="Non-binary"> Inclusive</label>
-            <br><br>
-            <h3>Dorm Style</h3>
-            <label><input type="radio" name="style" value="All" checked> All</label>
-            <br>
-            <label><input type="radio" name="style" value="Traditional"> Traditional</label>
-            <br>
-            <label><input type="radio" name="style" value="Suite"> Suite</label>
-            <br>
-            <label><input type="radio" name="style" value="Apartment"> Apartment</label>
+<body>
+  <div class="roommate-page">
+    
+    <!-- Left Column: Filters -->
+    <div class="filters">
+        <h2>Filters</h2>
+        <h3>Gender</h3>
+          <label><input type="radio" name="gender" value="All" checked> All</label>
+          <br>
+          <label><input type="radio" name="gender" value="Male"> Male Only</label>
+          <br>
+          <label><input type="radio" name="gender" value="Female"> Female Only</label>
+          <br>
+          <label><input type="radio" name="gender" value="Non-binary"> Inclusive</label>
+          <br><br>
+          <h3>Dorm Style</h3>
+          <label><input type="radio" name="style" value="All" checked> All</label>
+          <br>
+          <label><input type="radio" name="style" value="Traditional"> Traditional</label>
+          <br>
+          <label><input type="radio" name="style" value="Suite"> Suite</label>
+          <br>
+          <label><input type="radio" name="style" value="Apartment"> Apartment</label>
+    </div>
 
+    <!-- Right Column: Button + Modal + Posts -->
+    <div class="roommate-main-content">
+      
+      <!-- Create Post Button -->
+      <button id="create-post-btn" class="create-post-button">Create Post</button>
+
+      <!-- Modal -->
+      <div id="post-modal" class="modal hidden">
+        <div class="modal-content">
+          <span id="close-modal" class="close-btn">&times;</span>
+          <form action="/roommates/create" method="POST" class="post-form">
+            <h2>Create a New Post</h2>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="details">Details:</label>
+            <textarea id="details" name="details" rows="5" required></textarea>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Non-binary">Non-binary</option>
+            </select>
+
+            <label for="style">Dorm Style:</label>
+            <select name="style" id="style">
+              <option value="Traditional">Traditional</option>
+              <option value="Suite">Suite</option>
+              <option value="Apartment">Apartment</option>
+            </select>
+
+            <button type="submit" class="submit-post-btn">Post</button>
+          </form>
         </div>
-  
+      </div>
+
+      <!-- Posts -->
       <div class="roommate-list" id="roommate-container">
-        <!-- Only displays if filter has no results (see filter.js)-->
-          <p id="no-results-message">
-              No results found.
-          </p>
-        
+        <p id="no-results-message">No results found.</p>
+
         <% roommate.forEach(roommate => { %>
           <div class="roommate-card" 
               data-gender="<%= roommate.gender %>" 
@@ -47,9 +84,11 @@
           </div>
         <% }); %>
       </div>
-      </div>
+    </div>
   </div>
-  
-  </body>
+
+  <!-- Modal JS -->
+  <script src="/js/postModal.js"></script>
+</body>
 
 <%- include('../partials/footer') %>
