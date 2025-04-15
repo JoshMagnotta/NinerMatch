@@ -1,5 +1,6 @@
 const Roommate = require("../models/roommateModel");
 const User = require('../models/userModel');
+const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
     try {
@@ -11,9 +12,23 @@ exports.index = async (req, res, next) => {
     }
 };
 
+exports.create = async (req, res) => {
+    try {
+         let post = new Roommate(req.body);
+         post.poster = new mongoose.Types.ObjectId(req.session.user.id);
+ 
+         await post.save();
+ 
+         res.redirect('/roommates');
+    } catch (error) {
+        console.error("Error creating roommate post:", error);
+        res.status(500).send("Error creating post");
+    }
+};
+
 exports.getPost = async (req, res) => {
     try {
-        const roommate = await Roommate.findById(req.params.id).populate('poster');
+        const roommate = await Roommate.findById(req.params.id).populate('poster', 'firstName lastName');
         if (!roommate) {
             return res.status(404).render('404');
         }
@@ -46,27 +61,5 @@ exports.comment = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error adding comment' });
-    }
-};
-
-exports.create = async (req, res) => {
-    try {
-        const { title, details, gender, style } = req.body;
-
-        const poster = req.session.user?._id || null;
-
-        const newRoommate = new Roommate({
-            title,
-            details,
-            gender,
-            style,
-            poster
-        });
-
-        await newRoommate.save();
-        res.redirect('/roommates');
-    } catch (error) {
-        console.error("Error creating roommate post:", error);
-        res.status(500).send("Error creating post");
     }
 };
