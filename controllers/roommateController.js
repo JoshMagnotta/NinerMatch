@@ -1,9 +1,10 @@
 const Roommate = require("../models/roommateModel");
-const User = require('../models/userModel')
+const User = require('../models/userModel');
+const mongoose = require('mongoose');
 
 exports.index = async (req, res, next) => {
     try {
-        let roommate = await Roommate.find().populate('poster', 'firstName lastName')
+        let roommate = await Roommate.find().populate('poster', 'firstName lastName');
         res.render("roommate/index", { roommate });
     } catch (error) {
         console.error("Error fetching roommates:", error);
@@ -11,9 +12,23 @@ exports.index = async (req, res, next) => {
     }
 };
 
+exports.create = async (req, res) => {
+    try {
+         let post = new Roommate(req.body);
+         post.poster = new mongoose.Types.ObjectId(req.session.user.id);
+ 
+         await post.save();
+ 
+         res.redirect('/roommates');
+    } catch (error) {
+        console.error("Error creating roommate post:", error);
+        res.status(500).send("Error creating post");
+    }
+};
+
 exports.getPost = async (req, res) => {
     try {
-        const roommate = await Roommate.findById(req.params.id).populate('poster');
+        const roommate = await Roommate.findById(req.params.id).populate('poster', 'firstName lastName');
         if (!roommate) {
             return res.status(404).render('404');
         }
@@ -22,13 +37,15 @@ exports.getPost = async (req, res) => {
         console.error(err);
         res.status(500).send('Server Error');
     }
-}
+};
 
 exports.comment = async (req, res) => {
     try {
         const { text } = req.body;
 
-        const author = req.session.user ? req.session.user.firstName + ' ' + req.session.user.lastName : 'Anonymous';
+        const author = req.session.user
+            ? req.session.user.firstName + ' ' + req.session.user.lastName
+            : 'Anonymous';
 
         const roommate = await Roommate.findById(req.params.id);
 
@@ -45,4 +62,4 @@ exports.comment = async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Error adding comment' });
     }
-}
+};
