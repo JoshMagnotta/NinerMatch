@@ -1,4 +1,6 @@
-const model = require('../models/userModel')
+const User = require('../models/userModel')
+const Roommate = require('../models/roommateModel')
+
 
 exports.getLoginPage = async (req, res) => {
     res.render('./user/login'); 
@@ -8,13 +10,14 @@ exports.login = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
   try{
-    let user = await model.findOne({email: email});
+    let user = await User.findOne({email: email});
     if(!user){
       console.log('incorrect email, user not found');
       res.redirect('/user/login');
     };
     if(await user.comparePassword(password)){
       req.session.user = {
+        _id: user._id,
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -36,7 +39,7 @@ exports.getSignUpPage = async (req, res) => {
 
 exports.signUp = async (req, res) => {
   try{
-    let user = new model(req.body);
+    let user = new User(req.body);
     await user.save();
     res.redirect('/user/login')
   }
@@ -46,10 +49,26 @@ exports.signUp = async (req, res) => {
 };
 
 exports.getProfilePage = async (req, res) => {
-  if(!req.session.user) {
-    res.redirect('/user/login')
+  try {
+    if (!req.session.user) {
+      return res.redirect('/user/login');
+    }
+
+    console.log(req.session.user._id)
+    const posts = await Roommate.find({ poster: req.session.user._id });
+
+    const commentedPosts = await Roommate.find({
+      comments: { $elemMatch: { author: req.session.user.firstName + ' ' + req.session.user.lastName } }
+    });
+
+    res.render('./user/profile', {
+      user: req.session.user,
+      posts,
+      commentedPosts
+    });
+  } catch (err) {
+    console.log(err.message)
   }
-  res.render('./user/profile'); 
 };
 
 exports.logout = async (req, res) => {

@@ -1,24 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
 </head>
 <body>
     <%- include('../partials/header') %>
-
+    
     <div class="profile-container">
-            <h2>Profile</h2>
-            <div class="profile-content">
-                <%if(user){%>
-                    <h3>Username: <%= user.firstName + ' ' + user.lastName %></h3>
-                <%} else {%>
+        <h2>Profile</h2>
+
+        <div class="profile-content">
+            <% if (user) { %>
+                <p><strong>Name:</strong> <%= user.firstName %> <%= user.lastName %></p>
+                <p><strong>Email:</strong> <%= user.email %></p>
+            <% } %>
+            
+            <br>
+            <hr>
+
+            <h3>Your Posts</h3>
+            <% if (posts.length > 0) { %>
+                <ul class="profile-posts">
+                    <% posts.forEach(post => { %>
+                        <li class="clickable-post">
+                            <a href="/roommates/<%= post._id %>">
+                                <strong><%= post.title %></strong><br/>
+                                <small><%= post.details.substring(0, 100) %></small><br/>
+                                <em>Posted on <%= post.createdAt.toDateString() %></em>
+                            </a>
+                        </li>
+                    <% }); %>
                     
-                <%}%>
-            </div>
+                </ul>
+            <% } else { %>
+                <p class="no-posts">You haven't created any posts yet.</p>
+                <br>
+            <% } %>
+
+            <hr>
+
+            <h3>Posts You've Commented On</h3>
+            <% if (commentedPosts.length > 0) { %>
+            <ul class="profile-posts">
+                <% commentedPosts.forEach(post => { %>
+                    <li class="clickable-post">
+                    <a href="/roommates/<%= post._id %>">
+                        <strong><%= post.title %></strong><br/>
+                        <small><%= post.details.substring(0, 100) %></small><br/>
+                        <em>Posted on <%= post.createdAt.toDateString() %></em>
+                    </a>
+                    </li>
+                <% }); %>
+                
+            </ul>
+            <% } else { %>
+                <p class="no-posts">You haven't commented on any posts yet.</p>
+            <% } %>
+        </div>
     </div>
 
-    <%- include('../partials/footer') %>
+  <%- include('../partials/footer') %>
 </body>
 </html>
