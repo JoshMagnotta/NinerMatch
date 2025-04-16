@@ -20,7 +20,6 @@
         </div>
         <hr>
 
-
         <div class="comment-container">
             <h2>Comments</h2>
             <ul class="comments-list">
@@ -32,34 +31,17 @@
                     <li>No comments yet. Be the first to comment!</li>
                 <% } %>
             </ul>
+            <%if(user) {%>
+                <form class="comment-form" method="POST" action="/roommates/<%= roommate._id %>/comment">
+                    <label for="comment">Leave a Comment:</label>
+                    <textarea class="comment" name="text" required></textarea>
+                    <button type="submit">Submit</button>
+                  </form>
+                  
+                <%}%>
+            </div>
 
-            <form class="comment-form">
-                <label for="comment">Leave a Comment:</label>
-                <textarea class="comment" name="comment" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
     </div>
 </body>
 
 <%- include('../partials/footer') %>
-
-<script>
-    document.querySelector('.comment-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const commentText = document.querySelector('.comment').value;
-        const postId = "<%= roommate._id %>";
-
-        const response = await fetch(`/roommates/${postId}/comment`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: commentText })
-        });
-
-        if (response.ok) {
-            location.reload(); 
-        } else {
-            alert('Error submitting comment');
-        }
-    });
-</script>
