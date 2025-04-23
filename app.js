@@ -50,5 +50,6 @@ app.use('/roommates', require('./routes/roommateRoutes'));
 
  
 app.use('/dorm', dormRoutes);
+app.use('/dorms', require('./routes/dormRoutes'));
 
 app.use('/user', userRoutes);  

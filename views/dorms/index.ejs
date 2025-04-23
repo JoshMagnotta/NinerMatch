@@ -1,10 +1,12 @@
 <%- include('../partials/header') %>
 
-  <body>
-    <div class="main-content">
-      <h1>Dorms
-      </h1>
-    </div>
-  </body>
+<h2>Select a Residence Hall</h2>
+<ul>
+  <% dorms.forEach(dorm => { %>
+    <li>
+      <a href="/dorms/<%= dorm._id %>"><%= dorm.name %></a>
+    </li>
+  <% }); %>
+</ul>
 
 <%- include('../partials/footer') %>

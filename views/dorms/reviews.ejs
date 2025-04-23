@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<h1><%= dorm.name %></h1>
+<p><strong>Location:</strong> <%= dorm.on_campus ? 'On-campus' : 'Off-campus' %></p>
+<p><strong>Rent:</strong> $<%= dorm.average_rent %> / semester</p>
+
+<hr>
+
+<h2>Reviews</h2>
+<ul>
+    <% if (dorm.reviews && dorm.reviews.length > 0) { %>
+      <% dorm.reviews.forEach(review => { %>
+        <li>
+          <strong><%= review.author %></strong> - <%= review.star_rating %>/5<br>
+          <%= review.text %>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No reviews yet. Be the first to review!</li>
+    <% } %>
+  </ul>
+  
+
+<form class="review-form">
+  <label for="text">Leave a Review:</label>
+  <textarea name="text" required></textarea>
+  <label for="star_rating">Rating:</label>
+  <input type="number" name="star_rating" min="1" max="5" required>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.querySelector('.review-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const text = event.target.text.value;
+    const star_rating = event.target.star_rating.value;
+    const dormId = "<%= dorm._id %>";
+
+    const response = await fetch(`/dorms/${dormId}/review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, star_rating })
+    });
+
+    if (response.ok) {
+      location.reload();
+    } else {
+      alert('Failed to submit review');
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>
