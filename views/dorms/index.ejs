@@ -1,10 +1,53 @@
 <%- include('../partials/header') %>
 
-  <body>
-    <div class="main-content">
-      <h1>Dorms
-      </h1>
-    </div>
-  </body>
+<script src="/js/filterDorms.js" defer></script>
+
+<%
+function renderStars(rating) {
+  let fullStars = Math.floor(rating);
+  let halfStar = rating % 1 >= 0.25 && rating % 1 < 0.75;
+  let roundUp = rating % 1 >= 0.75;
+  if (roundUp) fullStars++;
+
+  let emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+  let html = '';
+
+  for (let i = 0; i < fullStars; i++) html += '<span class="star full">★</span>';
+  if (halfStar) html += '<span class="star half">★</span>';
+  for (let i = 0; i < emptyStars; i++) html += '<span class="star empty">★</span>';
+
+  return html;
+}
+%>
+
+<div class="page-wrapper flex">
+  <!-- Sorting Panel -->
+  <aside class="filter-panel">
+    <h3>Sort By</h3>
+    <button class="sort-btn" data-sort="alpha-asc">A → Z</button>
+    <button class="sort-btn" data-sort="alpha-desc">Z → A</button>
+    <button class="sort-btn" data-sort="stars">Stars (High → Low)</button>
+    <button class="sort-btn" data-sort="rent">Rent (Low → High)</button>
+    <button class="sort-btn" data-sort="campus-true">On Campus First</button>
+    <button class="sort-btn" data-sort="campus-false">Off Campus First</button>
+  </aside>
+
+  <!-- Dorm Cards -->
+  <div class="dorms-list" id="dorms-container">
+    <% dorms.forEach(dorm => { %>
+      <a href="/dorms/<%= dorm._id %>" class="dorm-card"
+         data-on-campus="<%= dorm.on_campus %>"
+         data-star="<%= dorm.star_rating %>"
+         data-rent="<%= dorm.average_rent %>">
+        <h2><%= dorm.name %></h2>
+        <div class="star-rating" title="<%= dorm.star_rating %> out of 5">
+          <%- renderStars(dorm.star_rating) %>
+        </div>
+        <p><strong>Rent:</strong> $<%= dorm.average_rent %> / semester</p>
+        <p><strong>Location:</strong> <%= dorm.on_campus ? "On-campus" : "Off-campus" %></p>
+      </a>
+    <% }) %>
+  </div>
+</div>
 
 <%- include('../partials/footer') %>
