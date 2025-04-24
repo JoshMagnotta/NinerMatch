@@ -32,12 +32,10 @@ exports.getDorm = async (req, res) => {
 exports.addReview = async (req, res) => {
   try {
     const dorm = await Dorm.findById(req.params.id);
-    console.log("📌 Fetched dorm:", dorm);
 
     if (!dorm) return res.status(404).send("Dorm not found");
 
     if (!dorm.reviews || !Array.isArray(dorm.reviews)) {
-      console.log("🛠 Forcing reviews into a clean array");
       dorm.reviews = [];
     }
 
@@ -53,8 +51,6 @@ exports.addReview = async (req, res) => {
       created_at: new Date()
     };
 
-    console.log("📝 Review to push:", reviewData);
-    console.log("✅ reviews before push:", dorm.reviews);
 
     dorm.reviews.push(reviewData);
 
@@ -66,9 +62,7 @@ exports.addReview = async (req, res) => {
       dorm.star_rating = (totalRating / dorm.reviews.length).toFixed(1);
       dorm.average_rent = Math.round(totalRent / dorm.reviews.length);
     }
-    console.log("⭐ Calculated average rent:", dorm.average_rent);
-    const saved = await dorm.save();
-    console.log("✅ Saved dorm:", saved);    
+    const saved = await dorm.save();  
     res.status(200).json({ message: 'Review added' });
 
   } catch (err) {
