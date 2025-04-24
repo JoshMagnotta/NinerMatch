@@ -495,7 +495,7 @@ body {
 }
 
 /* Filters */
-.filters {
+.dorm-page .filters {
   background-color: #f0e6b2;
   padding: 20px;
   border-radius: 8px;
