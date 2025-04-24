@@ -1,52 +1,122 @@
 <%- include('../partials/header') %>
 
-<h1><%= dorm.name %></h1>
-<p><strong>Location:</strong> <%= dorm.on_campus ? 'On-campus' : 'Off-campus' %></p>
-<p><strong>Rent:</strong> $<%= dorm.average_rent %> / semester</p>
+<main class="main-wrapper"> <!-- ✅ ADDED WRAPPER -->
 
-<hr>
+<%
+function renderStars(rating) {
+  let full = Math.floor(rating);
+  let half = rating % 1 >= 0.25 && rating % 1 < 0.75;
+  if (rating % 1 >= 0.75) full++;
+  let empty = 5 - full - (half ? 1 : 0);
+  let html = '';
+  for (let i = 0; i < full; i++) html += '<span class="star full">★</span>';
+  if (half) html += '<span class="star half">★</span>';
+  for (let i = 0; i < empty; i++) html += '<span class="star empty">★</span>';
+  return html;
+}
+%>
 
-<h2>Reviews</h2>
-<ul>
+<div class="page-wrapper">
+
+  <!-- Dorm Info Card -->
+  <div class="dorm-info-static">
+    <h2><%= dorm.name %></h2>
+    <div class="star-rating">
+      <%- renderStars(avgRating) %> <span class="numeric-rating">(<%= avgRating %>)</span>
+    </div>
+    <p><strong>Location:</strong> <%= dorm.on_campus ? 'On-campus' : 'Off-campus' %></p>
+    <p><strong>Average Rent:</strong> $<%= dorm.average_rent %></p>
+  </div>
+
+  <!-- Review Form -->
+  <div class="review-bubble">
+    <h3>Leave a Review</h3>
+    <form class="review-form" id="review-form">
+      <label for="text">Comment</label>
+      <textarea name="text" required placeholder="Share your experience..."></textarea>
+
+      <label>Rating</label>
+      <div class="star-slider" id="star-slider" data-rating="0">
+        <% for (let i = 1; i <= 5; i++) { %>
+          <span class="star clickable" data-value="<%= i %>">★</span>
+        <% } %>
+      </div>
+      <input type="hidden" name="star_rating" id="star_rating" required>
+
+      <label for="rent_paid">Rent Paid ($)</label>
+      <input type="number" name="rent_paid" min="0" step="1" required>
+
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+
+  <!-- Reviews Section -->
+  <h3 style="text-align: center;">Reviews</h3>
+  <div class="review-wrapper">
     <% if (dorm.reviews && dorm.reviews.length > 0) { %>
-      <% dorm.reviews.forEach(review => { %>
-        <li>
-          <strong><%= review.author %></strong> - <%= review.star_rating %>/5<br>
-          <%= review.text %>
-        </li>
-      <% }); %>
+      <% dorm.reviews.forEach(r => { %>
+        <div class="bubble">
+          <strong><%= r.author %></strong> rated it <%= r.star_rating %> ★<br>
+          Rent Paid: $<%= r.rent_paid %><br>
+          <%= r.text %>
+        </div>
+      <% }) %>
     <% } else { %>
-      <li>No reviews yet. Be the first to review!</li>
+      <div class="bubble no-reviews">No reviews yet.</div>
     <% } %>
-  </ul>
-  
+  </div>
 
-<form class="review-form">
-  <label for="text">Leave a Review:</label>
-  <textarea name="text" required></textarea>
-  <label for="star_rating">Rating:</label>
-  <input type="number" name="star_rating" min="1" max="5" required>
-  <button type="submit">Submit</button>
-</form>
+</div>
+
+</main> <!-- ✅ CLOSE MAIN -->
+
+<!-- Star Slider Behavior -->
+<script>
+  const slider = document.getElementById("star-slider");
+  const hiddenInput = document.getElementById("star_rating");
+
+  slider.querySelectorAll(".star").forEach(star => {
+    const value = parseInt(star.dataset.value);
+
+    star.addEventListener("mouseover", () => {
+      slider.querySelectorAll(".star").forEach(s => {
+        s.classList.toggle("hovered", parseInt(s.dataset.value) <= value);
+      });
+    });
+
+    star.addEventListener("mouseout", () => {
+      slider.querySelectorAll(".star").forEach(s => s.classList.remove("hovered"));
+    });
+
+    star.addEventListener("click", () => {
+      hiddenInput.value = value;
+      slider.dataset.rating = value;
+
+      slider.querySelectorAll(".star").forEach(s => {
+        s.classList.toggle("selected", parseInt(s.dataset.value) <= value);
+      });
+    });
+  });
+</script>
 
 <script>
-  document.querySelector('.review-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
+  document.getElementById("review-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const text = form.text.value;
+    const star_rating = form.star_rating.value;
+    const rent_paid = form.rent_paid.value;
 
-    const text = event.target.text.value;
-    const star_rating = event.target.star_rating.value;
-    const dormId = "<%= dorm._id %>";
-
-    const response = await fetch(`/dorms/${dormId}/review`, {
+    const response = await fetch(window.location.pathname + '/review', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, star_rating })
+      body: JSON.stringify({ text, star_rating, rent_paid })
     });
 
     if (response.ok) {
       location.reload();
     } else {
-      alert('Failed to submit review');
+      alert("Error submitting review");
     }
   });
 </script>

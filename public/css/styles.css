@@ -505,42 +505,303 @@ body {
 }
 
 /* Review List */
-.dorm-list-container {
+.dorms-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-.dorm-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .dorm-card {
-  background-color: #fff;
-  padding: 20px;
+  display: block;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
 }
 
-.dorm-card h3 {
-  margin-top: 0;
+.dorm-card:hover {
+  transform: scale(1.02);
+  background-color: #f9f9f9;
+}
+.page-wrapper {
+  padding: 2rem;
 }
 
+.section-title {
+  color: var(--niner-green);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 
-#make-post-btn {
-  align-self: flex-start;
-  padding: 10px 20px;
+.dorms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dorm-card {
+  display: block;
+  background-color: white;
+  border-left: 6px solid var(--niner-green);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.dorm-card:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+}
+
+.dorm-card h2 {
+  margin: 0 0 0.5rem;
+  color: var(--niner-green);
+}
+
+.dorm-card p {
+  margin: 0.25rem 0;
+}
+
+.star-rating {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 0.15rem;
+  color: var(--niner-gold);
+}
+
+.star-rating .star {
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  line-height: 1;
+}
+
+.star.full {
+  color: var(--niner-gold);
+}
+
+.star.half {
+  background: linear-gradient(to right, var(--niner-gold) 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.page-wrapper.flex {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.filter-panel {
+  width: 220px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.filter-panel h3 {
+  margin-bottom: 1rem;
+  color: var(--niner-green);
+}
+
+.filter-panel label {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+}
+
+.filter-panel input,
+.filter-panel select {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-panel button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  border: none;
   background-color: var(--niner-green);
   color: white;
-  border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.2s ease;
 }
 
-#make-post-btn:hover {
-  background-color: #004d3c;
+.filter-panel button:hover {
+  background-color: #00794e;
+}
+
+/* Static Dorm Card (no hover, no link) */
+.dorm-info-static {
+  max-width: 750px;
+  margin: 2rem auto;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 6px solid var(--niner-green);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  transition: none;
+}
+
+/* Review submission bubble */
+.review-bubble {
+  max-width: 750px;
+  background-color: white;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-form textarea,
+.review-form input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.review-form button {
+  background-color: var(--niner-green);
+  color: white;
+  font-weight: bold;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #00794e;
+}
+
+/* Reviews section with popout bubbles */
+.bubble-list {
+  max-width: 750px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.bubble {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  border-left: 6px solid var(--niner-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bubble.no-reviews {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Visual Stars */
+.star-rating {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 0.15rem;
+  color: var(--niner-gold);
+  margin-bottom: 0.5rem;
+}
+
+.star-rating .star {
+  font-family: Arial, sans-serif;
+}
+
+.star.full {
+  color: var(--niner-gold);
+}
+
+.star.half {
+  background: linear-gradient(to right, var(--niner-gold) 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.star.empty {
+  color: #ccc;
+}
+
+.numeric-rating {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+.star-slider {
+  display: flex;
+  gap: 4px;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.star-slider .star {
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star-slider .star.hovered,
+.star-slider .star.selected {
+  color: var(--niner-gold);
+}
+.review-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.bubble {
+  width: 70%;
+  max-width: 600px;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
