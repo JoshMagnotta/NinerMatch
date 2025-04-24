@@ -41,25 +41,24 @@ exports.getPost = async (req, res) => {
 
 exports.comment = async (req, res) => {
     try {
-        const { text } = req.body;
-
-        const author = req.session.user
-            ? req.session.user.firstName + ' ' + req.session.user.lastName
-            : 'Anonymous';
-
-        const roommate = await Roommate.findById(req.params.id);
-
-        if (!roommate) {
-            return res.status(404).send('Roommate post not found');
-        }
-
-        roommate.comments.push({ author, text });
-
-        await roommate.save();
-
-        res.status(200).json({ message: 'Comment added' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error adding comment' });
+      const { id } = req.params;
+      const { text } = req.body;
+  
+      const author = req.session.user
+        ? `${req.session.user.firstName} ${req.session.user.lastName}`
+        : 'Unknown';
+  
+      const roommate = await Roommate.findById(id);
+      if (!roommate) {
+        return res.status(404).send('Roommate post not found');
+      }
+  
+      roommate.comments.push({ author, text });
+      await roommate.save();
+  
+      res.redirect(`/roommates/${id}`);
+    } catch (err) {
+      console.error('Error submitting comment:', err);
+      res.status(500).send('Server error');
     }
-};
+  };
