@@ -3,6 +3,7 @@
 # Dependencies
 [Node.js](https://nodejs.org/en)
 [npm](https://www.npmjs.com/)
+[MongoDB](https://www.mongodb.com/try/download/community)
 
 # Commands to Run
 npm install
